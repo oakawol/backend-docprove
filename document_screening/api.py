@@ -110,13 +110,10 @@ def _pdf_to_image(pdf_path: Path) -> Path:
     return img_path
 
 
-if STATIC_DIR.exists():
-    app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="assets")
-
 @app.get("/", response_class=HTMLResponse)
 def index() -> HTMLResponse:
     if (STATIC_DIR / "index.html").exists():
-        return HTMLResponse((STATIC_DIR / "index.html").read_text(encoding="utf-8"))
+        return HTMLResponse((STATIC_DIR / "index.html").read_text())
     return HTMLResponse("<h1>DocProve API Backend Live</h1><p>Visit <a href='/health'>/health</a></p>")
 
 
